@@ -37,7 +37,7 @@ function App() {
       <div className="list">
         <h4
           onClick={() => {
-            setModal(modal ? false : true);
+            setModal(!modal);
           }}
         >
           {subject[2]}
