@@ -71,17 +71,29 @@ function App() {
         );
       })}
 
-      {modal ? <Modal /> : null}
+      {modal ? (
+        <Modal subject={[subject, setSubject]} backgroundColor={"gray"} />
+      ) : null}
     </div>
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{ backgroundColor: props.backgroundColor }}>
+      <h4>{props.subject[0][0]}</h4>
       <p>날짜</p>
       <p>상세 내용</p>
+      <button
+        onClick={() => {
+          let copy = [...props.subject[0]];
+          copy[0] = "멍멍";
+
+          props.subject[1](copy);
+        }}
+      >
+        수정
+      </button>
     </div>
   );
 }
