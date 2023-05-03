@@ -113,6 +113,8 @@ function App() {
           backgroundColor={"gray"}
         />
       ) : null}
+
+      {/* <Modal2></Modal2> */}
     </div>
   );
 }
@@ -190,5 +192,27 @@ function Modal(props) {
     </div>
   );
 }
+
+// class Modal2 extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       name: "kim",
+//       age: 20,
+//     };
+//   }
+//   render() {
+//     return (
+//       <div>
+//         안녕{this.state.name}
+//         <button
+//           onClick={() => {
+//             this.setState({ age: 21 });
+//           }}
+//         ></button>
+//       </div>
+//     );
+//   }
+// }
 
 export default App;
