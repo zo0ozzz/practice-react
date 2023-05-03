@@ -56,10 +56,11 @@ function App() {
               {subject[index]}
             </h4>
             <span
-              style={{ cursor: "pointer" }}
+              // style={{ cursor: "pointer" }}
               onClick={() => {
-                setLike(like[index] + 1);
-                console.log("클릭");
+                let copy = [...like];
+                copy[index]++;
+                setLike(copy);
               }}
             >
               😇
