@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function App() {
   let [subject, setSubject] = useState(["시루", "웅비", "승아"]);
-  let [like, setLike] = useState(0);
+  let [like, setLike] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ function App() {
         <h4>react blog</h4>
       </div>
 
-      <div className="list">
+      {/* <div className="list">
         <h4>
           {subject[0]}{" "}
           <span
@@ -43,7 +43,33 @@ function App() {
           {subject[2]}
         </h4>
         <p>5월 2일 발행</p>
-      </div>
+      </div> */}
+
+      {subject.map(function (item, index) {
+        return (
+          <div className="list">
+            <h4
+              onClick={() => {
+                setModal(!modal);
+              }}
+            >
+              {subject[index]}
+            </h4>
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setLike(like[index] + 1);
+                console.log("클릭");
+              }}
+            >
+              😇
+            </span>{" "}
+            {like[index]}
+            <p>5월 2일 발행</p>
+          </div>
+        );
+      })}
+
       {modal ? <Modal /> : null}
     </div>
   );
