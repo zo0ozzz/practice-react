@@ -5,10 +5,14 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  let [subject, setSubject] = useState(["시루", "웅비", "승아"]);
-  let [like, setLike] = useState([0, 0, 0]);
+  let [subject, setSubject] = useState([]);
+  let [like, setLike] = useState([]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
+  let [inputValue, setInputValue] = useState("");
+  let 날짜 = new Date();
+  // console.log(날짜.getSeconds());
+  let [date, setDate] = useState([]);
 
   return (
     <div className="App">
@@ -56,12 +60,50 @@ function App() {
             modal={modal}
             setModal={setModal}
             setTitle={setTitle}
+            date={date}
+            setDate={setDate}
             index={index}
           />
         );
       })}
 
-      <input type="text" />
+      <input
+        type="text"
+        onChange={(e) => {
+          setInputValue(e.target.value);
+        }}
+      />
+
+      <button
+        onClick={() => {
+          if (inputValue === "") {
+            alert("제목을 입력해주세요.");
+            return;
+          }
+
+          let copy = [...subject];
+
+          copy.unshift(inputValue);
+
+          setSubject(copy);
+
+          let copy2 = [...like];
+
+          copy2.unshift(0);
+
+          setLike(copy2);
+
+          let copy3 = [...date];
+
+          copy3.unshift(날짜.getSeconds());
+
+          setDate(copy3);
+
+          document.querySelector("input").value = "";
+        }}
+      >
+        등록
+      </button>
 
       {modal ? (
         <Modal
@@ -84,20 +126,47 @@ function Post(props) {
           props.setModal(!props.modal);
         }}
       >
-        {props.subject[props.index]}
+        {props.subject[props.index]}{" "}
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={(e) => {
+            e.stopPropagation();
+
+            let copy = [...props.like];
+            copy[props.index]++;
+            props.setLike(copy);
+          }}
+        >
+          😇
+        </span>{" "}
+        {props.like[props.index]}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+
+            let copy = [...props.subject];
+
+            copy.splice(props.index, 1);
+
+            props.setSubject(copy);
+
+            let copy2 = [...props.like];
+
+            copy2.splice(props.index, 1);
+
+            props.setLike(copy2);
+
+            let copy3 = [...props.date];
+
+            copy3.splice(props.index, 1);
+
+            props.setDate(copy3);
+          }}
+        >
+          삭제
+        </button>
       </h4>
-      <span
-        // style={{ cursor: "pointer" }}
-        onClick={() => {
-          let copy = [...props.like];
-          copy[props.index]++;
-          props.setLike(copy);
-        }}
-      >
-        😇
-      </span>{" "}
-      {props.like[props.index]}
-      <p>5월 2일 발행</p>
+      <p>{props.date[props.index]}</p>
     </div>
   );
 }
